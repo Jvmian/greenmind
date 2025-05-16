@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoHub Pro+</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSIjMTBCOTgxIiBkPSJNNTAgMTBMMjAgNTBMMzUgNTBMMTUgODBMNjUgODBMNTAgNTBMODAgNTBaIi8+PGNpcmNsZSBmaWxsPSIjM0I4MkY2IiBjeD0iNTAiIGN5PSI1MCIgcj0iMTUiLz48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNTAgNDBMNTUgNTBMNTAgNjBMNDUgNTBaIi8+PC9zdmc+">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --green: #10B981;
+      --green-light: #34D399;
+      --green-dark: #059669;
+      --emerald: #059669;
+      --teal: #0D9488;
+      --cyan: #0891B2;
+      --blue: #3B82F6;
+      --blue-light: #60A5FA;
+      --blue-dark: #2563EB;
+      --indigo: #6366F1;
+      --violet: #7C3AED;
+      --purple: #8B5CF6;
+      --fuchsia: #D946EF;
+      --pink: #EC4899;
+      --rose: #F43F5E;
+      --red: #EF4444;
+      --red-light: #F87171;
+      --red-dark: #DC2626;
+      --orange: #F97316;
+      --amber: #F59E0B;
+      --yellow: #EAB308;
+      --lime: #84CC16;
+      --white: #ffffff;
+      --light: #F8FAFC;
+      --light-gray: #F1F5F9;
+      --gray: #E2E8F0;
+      --dark-gray: #64748B;
+      --darker-gray: #334155;
+      --dark: #1E293B;
+      --black: #0F172A;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --border-radius: 12px;
+      --border-radius-lg: 16px;
+      --border-radius-xl: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--teal), var(--emerald));
+      color: var(--white);
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      z-index: 50;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+      transition: var(--transition);
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .logo:hover {
+      transform: rotate(15deg) scale(1.1);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-text h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      transition: var(--transition);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo-text .tagline {
+      font-size: 0.9rem;
+      font-weight: 300;
+      opacity: 0.9;
+      margin-top: 0.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-text span {
+      color: var(--cyan);
+      transition: var(--transition);
+    }
+
+    .status-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .last-update {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .last-update i {
+      font-size: 0.7rem;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--teal), var(--emerald));
+      color: var(--white);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+      box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer-link {
+      cursor: pointer;
+      text-decoration: underline;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--cyan);
+    }
+
+    main {
+      flex: 1;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .card {
+      background-color: var(--white);
+      border-radius: var(--border-radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid var(--gray);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--green-light));
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--blue-light);
+    }
+
+    .card:hover::before {
+      height: 6px;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      color: var(--dark-gray);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card p {
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--emerald);
+      letter-spacing: -0.5px;
+      transition: var(--transition);
+    }
+
+    .card:hover p {
+      color: var(--blue-dark);
+    }
+
+    .card i {
+      font-size: 1.3rem;
+      color: var(--blue);
+      transition: var(--transition);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(59, 130, 246, 0.1);
+      border-radius: 50%;
+      padding: 8px;
+    }
+
+    .card:hover i {
+      transform: scale(1.1);
+      background-color: rgba(59, 130, 246, 0.2);
+      color: var(--blue-dark);
+    }
+
+    .card .trend {
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-top: -0.5rem;
+    }
+
+    .trend-up {
+      color: var(--red);
+    }
+
+    .trend-down {
+      color: var(--green);
+    }
+
+    .trend-neutral {
+      color: var(--dark-gray);
+    }
+
+    .camera, .energy-mode, .energy-chart {
+      background-color: var(--white);
+      border-radius: var(--border-radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--gray);
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: var(--emerald);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+    }
+
+    .section-title i {
+      color: var(--blue);
+      font-size: 1.4rem;
+      transition: var(--transition);
+    }
+
+    .camera video {
+      width: 100%;
+      border-radius: 12px;
+      aspect-ratio: 16/9;
+      background-color: #000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .camera video:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .controls button, .emergency-button {
+      padding: 0.85rem 1.75rem;
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .controls button {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    }
+
+    .controls button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, var(--blue-light), var(--blue));
+    }
+
+    .emergency-button {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      font-weight: 600;
+      margin-top: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emergency-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, var(--red-light), var(--red));
+    }
+
+    .energy-mode p {
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      color: var(--dark-gray);
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin-right: 8px;
+      transition: var(--transition);
+    }
+
+    .status-active {
+      background-color: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    .chart-container {
+      position: relative;
+      height: 350px;
+      width: 100%;
+      transition: var(--transition);
+    }
+
+   /* Substitua as regras existentes do modal por estas: */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+  backdrop-filter: blur(0px);
+  padding: 1rem;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: var(--border-radius-xl);
+  width: 100%;
+  max-width: 600px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-hover);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  position: relative;
+  border: 1px solid rgba(203, 213, 225, 0.5);
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue-light) var(--light-gray);
+}
+
+.modal.show .modal-content {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--light-gray);
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--blue-light);
+  border-radius: 10px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(241, 245, 249, 0.8);
+  color: var(--darker-gray);
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: 1.25rem;
+  box-shadow: var(--shadow);
+  z-index: 10;
+}
+
+.modal-close:hover {
+  color: var(--red);
+  transform: rotate(90deg) scale(1.1);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.modal-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(30, 41, 59, 0.1), transparent);
+}
+
+.modal-logo {
+  height: 80px;
+  width: 80px;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+  border: 3px solid var(--white);
+  background-color: var(--white);
+  padding: 0.5rem;
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  margin: 0;
+  color: var(--emerald);
+  font-weight: 700;
+  line-height: 1.3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: var(--dark-gray);
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.modal-body {
+  line-height: 1.7;
+  color: var(--darker-gray);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.section-header i {
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(59, 130, 246, 0.1);
+  border-radius: 50%;
+  color: var(--blue);
+}
+
+.team-section, 
+.initiative-section, 
+.mission-section {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  border-left: 4px solid;
+  transition: var(--transition);
+}
+
+.team-section {
+  border-left-color: var(--green);
+}
+
+.initiative-section {
+  border-left-color: var(--amber);
+}
+
+.mission-section {
+  border-left-color: var(--blue);
+}
+
+.team-section:hover,
+.initiative-section:hover,
+.mission-section:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-body p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: var(--dark-gray);
+}
+
+.modal-body strong {
+  color: var(--emerald);
+  font-weight: 600;
+}
+
+.modal-icon {
+  color: var(--blue);
+  font-size: 2rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #3a3a3a; /* Cor de cabeçalho mais escura */
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.team-section, 
+.initiative-section, 
+.mission-section {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1.2rem;
+  border-radius: var(--border-radius);
+  border-left: 4px solid;
+  backdrop-filter: blur(2px);
+}
+
+.team-section {
+  border-left-color: var(--green);
+}
+
+.initiative-section {
+  border-left-color: var(--amber);
+}
+
+.mission-section {
+  border-left-color: var(--blue);
+}
+
+.section-header i {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+.modal-body p {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+
+.modal-body strong {
+  color: var(--emerald);
+  font-weight: 600;
+}
+
+.modal-icon {
+  color: var(--blue);
+  font-size: 2rem;
+}
+    /* Efeito de loading nos cards */
+    .card-value-loading {
+      position: relative;
+      overflow: hidden;
+      background-color: var(--light-gray);
+      border-radius: 4px;
+      color: transparent !important;
+    }
+
+    .card-value-loading::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      animation: loading 1.5s infinite;
+    }
+    
+    @keyframes loading {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .footer-link {
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: var(--light-gray); /* Cor mais suave antes do hover */
+  transition: var(--transition);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background-color: rgba(241, 245, 249, 0.1); /* Fundo sutil */
+}
+
+.footer-link::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--light-gray); /* Cor do sublinhado mais suave */
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+  opacity: 0.7; /* Transparência no estado normal */
+}
+
+.footer-link i {
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+  transition: var(--transition);
+  color: var(--light-gray); /* Cor do ícone mais suave */
+}
+
+.footer-link:hover {
+  color: var(--white);
+  background-color: rgba(8, 145, 178, 0.3); /* Fundo mais destacado no hover */
+}
+
+.footer-link:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+  background-color: var(--white);
+  opacity: 1; /* Opacidade total no hover */
+}
+
+.footer-link:hover i {
+  transform: translateX(3px);
+  color: var(--white);
+}
+
+    /* Notificações */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      color: white;
+      padding: 16px 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      max-width: 350px;
+    }
+
+    .notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .notification-success {
+      background: linear-gradient(135deg, var(--emerald), var(--teal));
+    }
+
+    .notification-info {
+      background: linear-gradient(135deg, var(--blue), var(--indigo));
+    }
+
+    .notification-warning {
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+    }
+
+    .notification-error {
+      background: linear-gradient(135deg, var(--rose), var(--red));
+    }
+
+    .notification-icon {
+      font-size: 1.2rem;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .notification-message {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .notification-close {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: var(--transition);
+    }
+
+    .notification-close:hover {
+      opacity: 1;
+    }
+
+    /* Animação de emergência */
+    @keyframes emergencyPulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    .emergency-active {
+      animation: emergencyPulse 1.5s infinite;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--darker-gray);
+      color: #fff;
+      text-align: center;
+      border-radius: var(--border-radius);
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Responsividade */
+@media (max-width: 1200px) {
+  .modal-content {
+    max-width: 550px;
+  }
+}
+
+@media (max-width: 1024px) {
+  main {
+    padding: 2rem;
+  }
+  
+  .modal-content {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .status-container {
+    align-items: flex-start;
+  }
+  
+  .card p {
+    font-size: 2rem;
+  }
+
+  /* Modal adjustments */
+  .modal-content {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  
+  .modal-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .modal-logo {
+    height: 80px;
+    margin-bottom: 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .section-header {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
+    padding: 1.25rem;
+  }
+  
+  .team-section, 
+  .initiative-section, 
+  .mission-section {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  main {
+    padding: 1.25rem;
+    gap: 1.75rem;
+  }
+  
+  .card {
+    padding: 1.25rem;
+  }
+  
+  .card p {
+    font-size: 1.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .notification {
+    max-width: calc(100% - 40px);
+  }
+
+  /* Modal adjustments */
+  .modal-content {
+    padding: 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+  }
+  
+  .modal-body {
+    gap: 1.25rem;
+  }
+  
+  .modal-body p {
+    font-size: 0.95rem;
+  }
+  
+  .section-header {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .modal-title {
+    font-size: 1.1rem;
+  }
+  
+  .modal-body p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .modal-logo {
+    height: 70px;
+  }
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#10B981" d="M50 10L20 50L35 50L15 80L65 80L50 50L80 50Z"/>
+        <circle fill="#3B82F6" cx="50" cy="50" r="15"/>
+        <path fill="#FFFFFF" d="M50 40L55 50L50 60L45 50Z"/>
+      </svg>
+      <div class="logo-text">
+        <h1>EcoHub<span>Pro+</span></h1>
+        <p class="tagline">Monitoramento Inteligente de Energia</p>
+      </div>
+    </div>
+    <div class="status-container">
+      <span class="status-indicator status-active"></span>
+      <span>Sistema operacional</span>
+      <div class="last-update">
+        <i class="fas fa-clock"></i>
+        Última atualização: <span id="updateTime">--:--</span>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="dashboard">
+      <div class="card" onclick="showSensorDetails('temperature')">
+        <h2><i class="fas fa-thermometer-half"></i>Temperatura</h2>
+        <p id="temperature" class="card-value-loading">-- °C</p>
+        <div class="trend trend-up">
+          <i class="fas fa-arrow-up"></i>
+          <span>+2.1° desde ontem</span>
+        </div>
+      </div>
+      <div class="card" onclick="showSensorDetails('humidity')">
+        <h2><i class="fas fa-tint"></i>Umidade</h2>
+        <p id="humidity" class="card-value-loading">-- %</p>
+        <div class="trend trend-down">
+          <i class="fas fa-arrow-down"></i>
+          <span>-5% desde ontem</span>
+        </div>
+      </div>
+      <div class="card" onclick="showSensorDetails('smoke')">
+        <h2><i class="fas fa-smog"></i>Nível de Fumaça</h2>
+        <p id="smoke" class="card-value-loading">-- ppm</p>
+        <div class="trend trend-neutral">
+          <i class="fas fa-arrows-alt-h"></i>
+          <span>estável</span>
+        </div>
+      </div>
+      <div class="card" onclick="showSensorDetails('light')">
+        <h2><i class="fas fa-lightbulb"></i>Intensidade da Luz</h2>
+        <p id="light" class="card-value-loading">-- lux</p>
+        <div class="trend trend-up">
+          <i class="fas fa-arrow-up"></i>
+          <span>+120 lux desde ontem</span>
+        </div>
+      </div>
+      <div class="card" onclick="showSensorDetails('energySource')">
+        <h2><i class="fas fa-bolt"></i>Fonte de Energia</h2>
+        <p id="energySource" class="card-value-loading">--</p>
+        <div class="trend trend-neutral">
+          <i class="fas fa-info-circle"></i>
+          <span>80% renovável</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="energy-mode">
+      <h2 class="section-title"><i class="fas fa-exclamation-triangle"></i>Modo de Emergência</h2>
+      <p>Pressione o botão abaixo para ativar o modo de emergência, que reduzirá o consumo de energia e priorizará apenas os sensores essenciais para operação crítica do sistema. Esta ação desativará funções não essenciais e otimizará o uso de recursos.</p>
+      <button class="emergency-button" id="emergencyButton" onclick="toggleEmergencyMode()">
+        <i class="fas fa-power-off"></i>
+        <span id="emergencyButtonText">Ativar Modo de Emergência</span>
+      </button>
+    </section>
+
+    <section class="energy-chart">
+      <h2 class="section-title"><i class="fas fa-chart-line"></i>Consumo de Energia <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Gráfico mostra o consumo de energia nos últimos 5 minutos</span></span></h2>
+      <div class="chart-container">
+        <canvas id="energyChart"></canvas>
+      </div>
+    </section>
+
+    <section class="camera">
+      <h2 class="section-title"><i class="fas fa-video"></i>Transmissão ao Vivo</h2>
+      <video id="cameraFeed" autoplay muted playsinline>
+        <source src="video.mp4" type="video/mp4">
+        Seu navegador não suporta o elemento de vídeo.
+      </video>
+      <div class="controls">
+        <button id="playPauseBtn">
+          <i class="fas fa-play"></i>
+          <span>Play</span>
+        </button>
+        <button id="fullscreenBtn">
+          <i class="fas fa-expand"></i>
+          <span>Tela Cheia</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Projeto desenvolvido pelo grupo <span class="footer-link" onclick="openModal()">GreenMind<i class="fas fa-arrow-right"></i></span> © 2025 | Versão 2.1.0</p>
+  </footer>
+
+  <!-- Modal Sobre o GreenMind -->
+  <div id="aboutModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      
+      <!-- Cabeçalho com logo -->
+      <div class="modal-header">
+        <img src="logo.jpg" alt="GreenMind Logo" class="modal-logo">
+        <h2 class="modal-title">
+          <i class="fas fa-leaf modal-icon" style="color: var(--green)"></i>
+          Quem Somos - GreenMind
+        </h2>
+      </div>
+
+      <div class="modal-body">
+        <div class="team-section">
+    <h3 class="section-header">
+      <i class="fas fa-users" style="color: var(--green-dark)"></i>
+      Quem Somos
+    </h3>
+    <p>Somos o GreenMind, grupo formado por <strong>João Victor, Paola, Ana Beatriz e Robinson</strong>, alunos da <strong>ETEC 097 – Escola Técnica Estadual Professor Pedro Leme Brisolla Sobrinho</strong>.</p>
+    <p>Unimos tecnologia e sustentabilidade para desenvolver soluções que contribuam com o meio ambiente e a educação.</p>
+  </div>
+
+        <div class="initiative-section">
+          <h3 class="section-header">
+            <i class="fas fa-lightbulb" style="color: var(--amber)"></i>
+             Nossa Iniciativa
+          </h3>
+          <p>Criamos o <strong>EcoHub Pro+</strong>, uma estação ecológica autônoma para monitoramento ambiental em tempo real.</p>
+          <p>O projeto promove a preservação da biodiversidade, o uso de energia limpa e o letramento científico por meio da coleta de dados e da aplicação prática em escolas e comunidades.</p>
+        </div>
+
+        <div class="mission-section">
+          <h3 class="section-header">
+            <i class="fas fa-rocket" style="color: var(--blue)"></i>
+             Nossa Missão
+          </h3>
+          <p>Promover a consciência ambiental e inspirar mudanças reais por meio da inovação, da ciência e da educação.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="notificationContainer"></div>
+
+  <script>
+    // Variáveis globais
+    let emergencyMode = false;
+    let chartUpdateInterval;
+    let energyChart;
+    let updateInterval = 15000; // 15 segundos
+    let videoPlaying = false;
+
+    // Inicialização quando o DOM estiver carregado
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeVideo();
+      initializeChart();
+      initializeSensors();
+      
+      // Configurar event listeners para os botões
+      document.getElementById('playPauseBtn').addEventListener('click', togglePlayPause);
+      document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+      
+      // Atualizar hora inicial
+      updateTime();
+      setInterval(updateTime, 1000);
+
+      // Inicializar modal
+      initModal();
+    });
+
+    // Funções do Modal
+    function initModal() {
+      const modal = document.getElementById('aboutModal');
+      const closeButton = modal.querySelector('.modal-close');
+      
+      // Fechar ao clicar no botão X
+      closeButton.addEventListener('click', closeModal);
+      
+      // Fechar ao clicar fora do conteúdo
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+      
+      // Fechar com tecla ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+          closeModal();
+        }
+      });
+    }
+
+    function openModal() {
+      const modal = document.getElementById('aboutModal');
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('aboutModal');
+      modal.classList.remove('show');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Atualizar hora
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('updateTime').textContent = 
+        `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+    }
+
+    // Inicializar o vídeo
+    function initializeVideo() {
+      const video = document.getElementById('cameraFeed');
+      video.controls = false;
+      
+      // Tentar autoplay com tratamento de erro
+      video.play()
+        .then(() => {
+          videoPlaying = true;
+          updatePlayButton(true);
+        })
+        .catch(error => {
+          console.log('Autoplay não permitido:', error);
+          videoPlaying = false;
+          updatePlayButton(false);
+        });
+    }
+
+    // Atualizar botão de play/pause
+    function updatePlayButton(playing) {
+      const button = document.getElementById('playPauseBtn');
+      const icon = button.querySelector('i');
+      const text = button.querySelector('span');
+      
+      if (playing) {
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+        text.textContent = 'Pausar';
+      } else {
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+        text.textContent = 'Play';
+      }
+    }
+
+    // Inicializar o gráfico
+    function initializeChart() {
+      const ctx = document.getElementById('energyChart').getContext('2d');
+      energyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [{
+            label: 'Consumo (Watts)',
+            data: [],
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderColor: 'rgba(59, 130, 246, 1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#fff',
+            pointBorderColor: 'rgba(59, 130, 246, 1)',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              },
+              ticks: {
+                callback: function(value) {
+                  return value + 'W';
+                }
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.parsed.y + ' Watts';
+                }
+              },
+              displayColors: false,
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              titleFont: {
+                size: 14,
+                weight: 'bold'
+              },
+              bodyFont: {
+                size: 12
+              }
+            },
+            legend: {
+              display: false
+            }
+          },
+          interaction: {
+            intersect: false,
+            mode: 'index'
+          }
+        }
+      });
+
+      // Preencher o gráfico com alguns dados iniciais
+      const now = new Date();
+      for (let i = 10; i >= 0; i--) {
+        const time = new Date(now.getTime() - i * 15000); // 15 segundos
+        energyChart.data.labels.push(time.toLocaleTimeString());
+        energyChart.data.datasets[0].data.push(getRandomValue(20, 50));
+      }
+      energyChart.update();
+
+      // Iniciar atualização periódica
+      chartUpdateInterval = setInterval(updateChart, updateInterval);
+    }
+
+    // Inicializar sensores
+    function initializeSensors() {
+      updateSensors();
+      setInterval(updateSensors, updateInterval);
+    }
+
+    // Função auxiliar para gerar valores aleatórios
+    function getRandomValue(min, max) {
+      return parseFloat((Math.random() * (max - min) + min).toFixed(1));
+    }
+
+    // Atualizar leituras dos sensores
+    function updateSensors() {
+      // Mostrar efeito de loading
+      const cards = document.querySelectorAll('.card p');
+      cards.forEach(card => {
+        card.classList.add('card-value-loading');
+      });
+
+      // Simular delay de carregamento
+      setTimeout(() => {
+        if (!emergencyMode) {
+          document.getElementById('temperature').textContent = `${getRandomValue(20, 35)} °C`;
+          document.getElementById('humidity').textContent = `${getRandomValue(40, 70)} %`;
+          document.getElementById('smoke').textContent = `${getRandomValue(100, 300)} ppm`;
+          document.getElementById('light').textContent = `${getRandomValue(300, 900)} lux`;
+        } else {
+          document.getElementById('temperature').textContent = `${getRandomValue(22, 30)} °C`;
+          document.getElementById('humidity').textContent = `-- %`;
+          document.getElementById('smoke').textContent = `${getRandomValue(80, 150)} ppm`;
+          document.getElementById('light').textContent = `-- lux`;
+        }
+
+        const sources = ['Solar', 'Eólica', 'Bateria'];
+        document.getElementById('energySource').textContent = sources[Math.floor(Math.random() * sources.length)];
+
+        // Remover efeito de loading
+        cards.forEach(card => {
+          card.classList.remove('card-value-loading');
+        });
+
+        // Mostrar notificação de atualização
+        showNotification('success', 'Dados Atualizados', 'As leituras dos sensores foram atualizadas com sucesso.');
+      }, 1000);
+    }
+
+    // Atualizar o gráfico
+    function updateChart() {
+      const now = new Date();
+      const label = now.toLocaleTimeString();
+      
+      if (energyChart.data.labels.length > 15) {
+        energyChart.data.labels.shift();
+        energyChart.data.datasets[0].data.shift();
+      }
+      
+      energyChart.data.labels.push(label);
+      energyChart.data.datasets[0].data.push(getRandomValue(10, emergencyMode ? 30 : 60));
+      energyChart.update();
+    }
+
+    // Controles do vídeo
+    function togglePlayPause() {
+      const video = document.getElementById('cameraFeed');
+      
+      if (video.paused) {
+        video.play()
+          .then(() => {
+            videoPlaying = true;
+            updatePlayButton(true);
+          })
+          .catch(error => {
+            console.log('Erro ao reproduzir vídeo:', error);
+          });
+      } else {
+        video.pause();
+        videoPlaying = false;
+        updatePlayButton(false);
+      }
+    }
+
+    // Tela cheia
+    function toggleFullscreen() {
+      const video = document.getElementById('cameraFeed');
+      
+      if (!document.fullscreenElement) {
+        if (video.requestFullscreen) {
+          video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+          video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) {
+          video.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Modo de emergência
+    function toggleEmergencyMode() {
+      emergencyMode = !emergencyMode;
+      const button = document.getElementById('emergencyButton');
+      const buttonText = document.getElementById('emergencyButtonText');
+      const buttonIcon = button.querySelector('i');
+      const body = document.body;
+      
+      if (emergencyMode) {
+        buttonText.textContent = "Desativar Modo de Emergência";
+        button.style.background = "linear-gradient(135deg, var(--emerald), var(--teal))";
+        buttonIcon.classList.remove('fa-power-off');
+        buttonIcon.classList.add('fa-check');
+        body.classList.add('emergency-active');
+        showNotification('success', 'Modo de Emergência', 'Modo de emergência ativado com sucesso!');
+      } else {
+        buttonText.textContent = "Ativar Modo de Emergência";
+        button.style.background = "linear-gradient(135deg, var(--red), var(--red-dark))";
+        buttonIcon.classList.remove('fa-check');
+        buttonIcon.classList.add('fa-power-off');
+        body.classList.remove('emergency-active');
+        showNotification('info', 'Modo de Emergência', 'Modo de emergência desativado.');
+      }
+      
+      // Atualizações imediatas
+      updateSensors();
+      updateChart();
+    }
+
+    // Mostrar notificação
+    function showNotification(type, title, message) {
+      const container = document.getElementById('notificationContainer');
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      
+      notification.innerHTML = `
+        <i class="fas ${getNotificationIcon(type)} notification-icon"></i>
+        <div class="notification-content">
+          <div class="notification-title">${title}</div>
+          <div class="notification-message">${message}</div>
+        </div>
+        <i class="fas fa-times notification-close" onclick="this.parentElement.classList.remove('show')"></i>
+      `;
+      
+      container.appendChild(notification);
+      
+      // Forçar reflow para ativar a animação
+      void notification.offsetWidth;
+      
+      notification.classList.add('show');
+      
+      // Remover após 5 segundos
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notification.remove();
+        }, 500);
+      }, 5000);
+    }
+
+    // Obter ícone para o tipo de notificação
+    function getNotificationIcon(type) {
+      switch(type) {
+        case 'success': return 'fa-check-circle';
+        case 'error': return 'fa-exclamation-circle';
+        case 'warning': return 'fa-exclamation-triangle';
+        case 'info': 
+        default: return 'fa-info-circle';
+      }
+    }
+
+    // Mostrar detalhes do sensor
+    function showSensorDetails(sensorId) {
+      let message = "";
+      const value = document.getElementById(sensorId).textContent;
+      
+      switch(sensorId) {
+        case 'temperature':
+          message = `Temperatura atual: ${value}\nValor ideal: 20-25°C`;
+          break;
+        case 'humidity':
+          message = `Umidade atual: ${value}\nValor ideal: 40-60%`;
+          break;
+        case 'smoke':
+          message = `Nível de fumaça: ${value}\nAlerta acima de 500ppm`;
+          break;
+        case 'light':
+          message = `Intensidade luminosa: ${value}\nValor ideal: 300-700 lux`;
+          break;
+        case 'energySource':
+          message = `Fonte de energia atual: ${value}`;
+          break;
+      }
+      
+      alert(message);
+    }
+  </script>
+</body>
+</html>
