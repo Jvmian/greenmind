@@ -50,7 +50,7 @@ cd greenmind-ecohubpro
 ## 🌐 Links do projeto
 
 🔗 **Preview / Demonstração:**  
- [- Site aqui!](https://jvmian.github.io/greenmind/index.html)
+ [- Site aqui!](https://jvmian.github.io/GreenMind/index.html)
 
 ---
 
